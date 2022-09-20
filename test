@@ -1,0 +1,89 @@
+class chatbox {
+  
+    constructor(chatTarget, chatWindow, chatHeader, messages, messageContainer, chatButton) {
+      const messageElement = '';
+      
+      chatTarget.addEventListener('click', () => {
+        let notificationIcon = document.querySelector('.c-chat-window__notification');
+        notificationIcon.classList.add('c-chat-window--hide');
+        this.expand(chatWindow, chatTarget);
+      });
+      
+      chatHeader.addEventListener('click', () => {
+        this.minimise(chatWindow, chatTarget);
+      });
+      
+      
+      // Send the messages from botman 2 seconds after initialisation
+     setTimeout(() => {
+        this.notification();
+        this.displayMessages(messages);
+      }, 2000);
+      
+      
+      chatButton.addEventListener('click', () => {
+        let sentMessage = document.querySelector('.c-chat-window__text-box');
+        this.sendMessage(sentMessage, messages);
+      })
+      
+    }
+    
+    expand(window, target) {
+      window.classList.toggle('c-chat-window--hide');
+      target.classList.toggle('c-chat-window--hide');
+    }
+    
+    minimise(window, target) {
+      window.classList.toggle('c-chat-window--hide');
+      target.classList.toggle('c-chat-window--hide');
+    }
+    
+    addMessage(message) {
+      this.buildMessageElement(message)
+    }
+    
+    displayMessages(messages) {
+      messages.forEach(message => {
+        this.buildMessageElement(message);
+      });
+    }
+    
+    buildMessageElement(message) {
+      this.messageElement = '<p class="c-chat-window__message ';
+      this.messageElement += message.sent ? 'c-chat-window__message--sent' : 'c-chat-window__message--received';
+      this.messageElement += '">'
+      this.messageElement += message.message;
+      this.messageElement += '</p>';
+      messageContainer.innerHTML += this.messageElement;
+    }
+    
+    sendMessage(sentMessage, messages) {
+      let newMessage = { 
+        'message':sentMessage.value,
+        'sent': true
+      };
+      messages.push(newMessage);
+      sentMessage.value = '';
+      this.addMessage(newMessage);
+    }
+    
+    notification() {
+      let notificationIcon = document.querySelector('.c-chat-window__notification');
+      notificationIcon.classList.remove('c-chat-window--hide');
+    }
+  }
+  
+  let chatTarget = document.querySelector('.c-chat-window__target');
+  let chatWindow = document.querySelector('.c-chat-window');
+  let chatHeader = document.querySelector('.c-chat-window__header');
+  let messageContainer = document.querySelector('.c-chat-window__messages');
+  let chatButton = document.querySelector('.c-chat-window__button');
+  
+  
+  let messages = [
+    {'message': 'Hello my name is Botman, how can I help you?', 'sent': false},
+    {'message': 'Ask me anything you would like', 'sent': false}
+  ]
+  
+  new chatbox(chatTarget, chatWindow, chatHeader, messages, messageContainer, chatButton);
+  
