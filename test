@@ -87,3 +87,22 @@ class chatbox {
   
   new chatbox(chatTarget, chatWindow, chatHeader, messages, messageContainer, chatButton);
   
+
+
+<main>
+        <div class="c-chat-window__container">
+          <div class="c-chat-window__target">Botman</div>
+      
+          <div class="c-chat-window__notification c-chat-window--hide"></div>
+          <div class="c-chat-window c-chat-window--hide"> 
+            <div class="c-chat-window__header">Botman</div>
+            <div class="c-chat-window__messages">
+            </div>
+            <div class="c-chat-window__compose">
+              <input type="text" class="c-chat-window__text-box" placeholder="Write message...">  
+              <button class="c-chat-window__button" type="submit">Send
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
